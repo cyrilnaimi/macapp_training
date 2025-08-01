@@ -1,0 +1,14 @@
+"Power On" = "Allumer";
+"Shutdown" = "Éteindre";
+"Apply" = "Appliquer";
+"Confirm" = "Confirmer";
+"Time" = "Heure";
+"This will execute the following command:\n\n%@" = "Ceci exécutera la commande suivante :\n\n%@";
+"The Missing On/Off Scheduler for macOS" = "Le planificateur d'allumage/extinction manquant pour macOS";
+"Monday" = "Lundi";
+"Tuesday" = "Mardi";
+"Wednesday" = "Mercredi";
+"Thursday" = "Jeudi";
+"Friday" = "Vendredi";
+"Saturday" = "Samedi";
+"Sunday" = "Dimanche";

@@ -1,0 +1,14 @@
+Power On" = "電源オン";
+"Shutdown" = "シャットダウン";
+"Apply" = "適用";
+"Confirm" = "確認";
+"Time" = "時間";
+"This will execute the following command:\n\n%@" = "次のコマンドを実行します:\n\n%@";
+"The Missing On/Off Scheduler for macOS" = "macOS用オン/オフスケジューラ";
+"Monday" = "月曜日";
+"Tuesday" = "火曜日";
+"Wednesday" = "水曜日";
+"Thursday" = "木曜日";
+"Friday" = "金曜日";
+"Saturday" = "土曜日";
+"Sunday" = "日曜日";
