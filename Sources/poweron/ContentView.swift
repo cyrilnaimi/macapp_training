@@ -121,24 +121,26 @@ struct ScheduleView: View {
             }
             
             HStack {
-                DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
+                VStack {
+                    DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
+                        .labelsHidden()
+                }
                 
-                Spacer()
-                
-                ForEach(weekdays, id: \.self) { day in
-                    Button(action: {
-                        if days.contains(day) {
-                            days.removeAll { $0 == day }
-                        } else {
-                            days.append(day)
+                HStack {
+                    ForEach(weekdays, id: \.self) { day in
+                        Button(action: {
+                            if days.contains(day) {
+                                days.removeAll { $0 == day }
+                            } else {
+                                days.append(day)
+                            }
+                        }) {
+                            Text(LocalizedStringKey(day))
+                                .padding(8)
+                                .background(days.contains(day) ? Color.blue : Color.gray)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
-                    }) {
-                        Text(day.prefix(1))
-                            .padding(8)
-                            .background(days.contains(day) ? Color.blue : Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
                     }
                 }
             }
