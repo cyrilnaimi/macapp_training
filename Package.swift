@@ -14,7 +14,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .executableTarget(
             name: "poweron_gadget",
-            resources: [.process("Resources")],
-            infoPlist: .file("Info.plist")),
+            resources: [.process("Resources")]
+            ),
     ]
 )

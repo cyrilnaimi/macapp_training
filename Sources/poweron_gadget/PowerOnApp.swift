@@ -1,8 +1,15 @@
-
 import SwiftUI
+import AppKit
+
+class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+}
 
 @main
 struct PowerOnApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var locale: Locale
 
     init() {
