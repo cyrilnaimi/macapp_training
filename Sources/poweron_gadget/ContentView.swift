@@ -139,27 +139,26 @@ struct ScheduleView: View {
             }
             .toggleStyle(.switch)
             
-            if isEnabled {
-                DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                VStack(alignment: .leading) {
-                    ForEach(weekdays, id: \.self) { day in
-                        Toggle(isOn: Binding(
-                            get: { days.contains(day) },
-                            set: {
-                                if $0 {
-                                    days.insert(day)
-                                } else {
-                                    days.remove(day)
-                                }
+            DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
+                .labelsHidden()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack(alignment: .leading) {
+                ForEach(weekdays, id: \.self) { day in
+                    Toggle(isOn: Binding(
+                        get: { days.contains(day) },
+                        set: {
+                            if $0 {
+                                days.insert(day)
+                            } else {
+                                days.remove(day)
                             }
-                        )) {
-                            Text(LocalizedStringKey(day))
                         }
-                        .toggleStyle(.switch)
+                    )) {
+                        Text(LocalizedStringKey(day))
+                            .frame(width: 80, alignment: .leading) // Adjust width as needed for alignment
                     }
+                    .toggleStyle(.switch)
                 }
             }
         }
