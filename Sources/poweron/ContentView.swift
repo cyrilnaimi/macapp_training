@@ -24,15 +24,24 @@ struct ContentView: View {
                 let powerOnSchedule = Schedule(type: "wakeorpoweron", days: powerOnDays, time: timeString(from: powerOnTime))
                 let shutdownSchedule = Schedule(type: "shutdown", days: shutdownDays, time: timeString(from: shutdownTime))
                 
-                var commands = [String]()
+                var schedules = [Schedule]()
                 if !powerOnSchedule.days.isEmpty {
-                    commands.append("sudo pmset repeat \(powerOnSchedule.type) \(powerOnSchedule.days.joined()) \(powerOnSchedule.time)")
+                    schedules.append(powerOnSchedule)
                 }
                 if !shutdownSchedule.days.isEmpty {
-                    commands.append("sudo pmset repeat \(shutdownSchedule.type) \(shutdownSchedule.days.joined()) \(shutdownSchedule.time)")
+                    schedules.append(shutdownSchedule)
                 }
                 
-                alertMessage = "This will execute the following commands:\n\n\(commands.joined(separator: "\n"))"
+                var command = "sudo pmset repeat"
+                if schedules.isEmpty {
+                    command += " cancel"
+                } else {
+                    for schedule in schedules {
+                        command += " \(schedule.type) \(schedule.days.joined()) \(schedule.time)"
+                    }
+                }
+                
+                alertMessage = "This will execute the following command:\n\n\(command)"
                 showingAlert = true
             }
             .padding()
@@ -42,17 +51,18 @@ struct ContentView: View {
                     message: Text(alertMessage),
                     primaryButton: .default(Text("Apply")) {
                         let powerOnSchedule = Schedule(type: "wakeorpoweron", days: powerOnDays, time: timeString(from: powerOnTime))
+                        let shutdownSchedule = Schedule(type: "shutdown", days: shutdownDays, time: timeString(from: shutdownTime))
+                        
+                        var schedules = [Schedule]()
                         if !powerOnSchedule.days.isEmpty {
-                            pmsetManager.setSchedule(schedule: powerOnSchedule) { success in
-                                // Handle success/failure
-                            }
+                            schedules.append(powerOnSchedule)
+                        }
+                        if !shutdownSchedule.days.isEmpty {
+                            schedules.append(shutdownSchedule)
                         }
                         
-                        let shutdownSchedule = Schedule(type: "shutdown", days: shutdownDays, time: timeString(from: shutdownTime))
-                        if !shutdownSchedule.days.isEmpty {
-                            pmsetManager.setSchedule(schedule: shutdownSchedule) { success in
-                                // Handle success/failure
-                            }
+                        pmsetManager.setSchedules(schedules: schedules) { success in
+                            // Handle success/failure
                         }
                     },
                     secondaryButton: .cancel()

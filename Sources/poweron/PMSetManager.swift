@@ -25,12 +25,25 @@ class PMSetManager {
         completion(output)
     }
     
-    func setSchedule(schedule: Schedule, completion: @escaping (Bool) -> Void) {
+    func setSchedules(schedules: [Schedule], completion: @escaping (Bool) -> Void) {
         let task = Process()
         task.launchPath = "/usr/bin/env"
         
-        let days = schedule.days.joined()
-        task.arguments = ["sudo", "pmset", "repeat", schedule.type, days, schedule.time]
+        var arguments = ["sudo", "pmset", "repeat"]
+        if schedules.isEmpty {
+            arguments.append("cancel")
+        } else {
+            for schedule in schedules {
+                let days = schedule.days.joined()
+                if !days.isEmpty && !schedule.time.isEmpty {
+                    arguments.append(schedule.type)
+                    arguments.append(days)
+                    arguments.append(schedule.time)
+                }
+            }
+        }
+        
+        task.arguments = arguments
         
         let pipe = Pipe()
         task.standardOutput = pipe
@@ -40,7 +53,7 @@ class PMSetManager {
         task.waitUntilExit()
         
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8) ?? ""
+        _ = String(data: data, encoding: .utf8) ?? ""
         
         completion(task.terminationStatus == 0)
     }
