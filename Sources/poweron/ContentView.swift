@@ -17,12 +17,15 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .padding()
             
-            ScheduleView(title: LocalizedStringKey("Power On"), time: $powerOnTime, days: $powerOnDays)
-            ScheduleView(title: LocalizedStringKey("Shutdown"), time: $shutdownTime, days: $shutdownDays)
+            ScheduleView(title: LocalizedStringKey("Power On"), iconName: "power.circle", time: $powerOnTime, days: $powerOnDays)
+            
+            Divider()
+            
+            ScheduleView(title: LocalizedStringKey("Shutdown"), iconName: "power.circle.fill", time: $shutdownTime, days: $shutdownDays)
             
             Button(LocalizedStringKey("Apply")) {
-                let powerOnSchedule = Schedule(type: "wakeorpoweron", days: powerOnDays, time: timeString(from: powerOnTime))
-                let shutdownSchedule = Schedule(type: "shutdown", days: shutdownDays, time: timeString(from: shutdownTime))
+                let powerOnSchedule = Schedule(type: "wakeorpoweron", days: convertFullDaysToShort(days: powerOnDays), time: timeString(from: powerOnTime))
+                let shutdownSchedule = Schedule(type: "shutdown", days: convertFullDaysToShort(days: shutdownDays), time: timeString(from: shutdownTime))
                 
                 var schedules = [Schedule]()
                 if !powerOnSchedule.days.isEmpty {
@@ -85,23 +88,44 @@ struct ContentView: View {
         formatter.dateFormat = "HH:mm:ss"
         return formatter.string(from: date)
     }
+    
+    private func convertFullDaysToShort(days: [String]) -> [String] {
+        let dayMap = [
+            "Monday": "M",
+            "Tuesday": "T",
+            "Wednesday": "W",
+            "Thursday": "R",
+            "Friday": "F",
+            "Saturday": "S",
+            "Sunday": "U"
+        ]
+        return days.compactMap { dayMap[$0] }
+    }
 }
 
 struct ScheduleView: View {
-    let title: String
+    let title: LocalizedStringKey
+    let iconName: String
     @Binding var time: Date
     @Binding var days: [String]
     
-    private let weekdays = ["M", "T", "W", "R", "F", "S", "U"]
+    private let weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var body: some View {
         VStack {
-            Text(title)
-                .font(.headline)
-            DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
-                .labelsHidden()
+            HStack {
+                Image(systemName: iconName)
+                    .font(.headline)
+                Text(title)
+                    .font(.headline)
+            }
             
             HStack {
+                DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
+                    .labelsHidden()
+                
+                Spacer()
+                
                 ForEach(weekdays, id: \.self) { day in
                     Button(action: {
                         if days.contains(day) {
@@ -110,7 +134,7 @@ struct ScheduleView: View {
                             days.append(day)
                         }
                     }) {
-                        Text(day)
+                        Text(day.prefix(1))
                             .padding(8)
                             .background(days.contains(day) ? Color.blue : Color.gray)
                             .foregroundColor(.white)
