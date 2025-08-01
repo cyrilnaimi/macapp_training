@@ -13,14 +13,14 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text("PowerOn")
+            Text("The Missing On/Off Scheduler for macOS")
                 .font(.largeTitle)
                 .padding()
             
-            ScheduleView(title: "Power On", time: $powerOnTime, days: $powerOnDays)
-            ScheduleView(title: "Shutdown", time: $shutdownTime, days: $shutdownDays)
+            ScheduleView(title: LocalizedStringKey("Power On"), time: $powerOnTime, days: $powerOnDays)
+            ScheduleView(title: LocalizedStringKey("Shutdown"), time: $shutdownTime, days: $shutdownDays)
             
-            Button("Apply") {
+            Button(LocalizedStringKey("Apply")) {
                 let powerOnSchedule = Schedule(type: "wakeorpoweron", days: powerOnDays, time: timeString(from: powerOnTime))
                 let shutdownSchedule = Schedule(type: "shutdown", days: shutdownDays, time: timeString(from: shutdownTime))
                 
@@ -41,15 +41,15 @@ struct ContentView: View {
                     }
                 }
                 
-                alertMessage = "This will execute the following command:\n\n\(command)"
+                alertMessage = String(localized: "This will execute the following command:\n\n\(command)")
                 showingAlert = true
             }
             .padding()
             .alert(isPresented: $showingAlert) {
                 Alert(
-                    title: Text("Confirm"),
+                    title: Text(LocalizedStringKey("Confirm")),
                     message: Text(alertMessage),
-                    primaryButton: .default(Text("Apply")) {
+                    primaryButton: .default(Text(LocalizedStringKey("Apply"))) {
                         let powerOnSchedule = Schedule(type: "wakeorpoweron", days: powerOnDays, time: timeString(from: powerOnTime))
                         let shutdownSchedule = Schedule(type: "shutdown", days: shutdownDays, time: timeString(from: shutdownTime))
                         
@@ -98,7 +98,7 @@ struct ScheduleView: View {
         VStack {
             Text(title)
                 .font(.headline)
-            DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+            DatePicker(LocalizedStringKey("Time"), selection: $time, displayedComponents: .hourAndMinute)
                 .labelsHidden()
             
             HStack {

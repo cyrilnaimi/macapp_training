@@ -1,4 +1,4 @@
-# PowerOn
+# poweron_gadget
 
 A macOS application to schedule wake-up and shutdown times.
 
@@ -22,3 +22,13 @@ The goal of this project is to create a user-friendly macOS application that pro
 *   `sudo pmset repeat cancel`: Cancel all scheduled events.
 *   `sudo pmset repeat wakeorpoweron MTWRF 08:00:00`: Schedule the computer to wake at 8:00 AM on weekdays.
 *   `sudo pmset repeat shutdown MTWRF 22:00:00`: Schedule the computer to shut down at 10:00 PM on weekdays.
+
+## Internationalization
+
+This application will support the following languages in future releases:
+
+*   English (Default)
+*   French
+*   German
+*   Italian
+*   Japanese
