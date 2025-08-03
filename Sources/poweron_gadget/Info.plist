@@ -5,7 +5,7 @@
     <key>CFBundleExecutable</key>
     <string>poweron_gadget</string>
     <key>CFBundleIdentifier</key>
-    <string>com.yourcompany.poweron-gadget</string>
+    <string>com.naimicyril.poweron</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>

@@ -4,6 +4,7 @@
 "Confirm" = "Confirmer";
 "Time" = "Heure";
 "This will execute the following command:\n\n%@" = "Ceci exécutera la commande suivante :\n\n%@";
+"This will set the following power schedule:\n\n%@" = "Ceci définira le programme d'alimentation suivant :\n\n%@";
 "The Missing On/Off Scheduler for macOS" = "Le planificateur d'allumage/extinction manquant pour macOS";
 "Monday" = "Lundi";
 "Tuesday" = "Mardi";
@@ -12,3 +13,10 @@
 "Friday" = "Vendredi";
 "Saturday" = "Samedi";
 "Sunday" = "Dimanche";
+"Error" = "Erreur";
+"OK" = "OK";
+"Please enable at least one schedule" = "Veuillez activer au moins un programme";
+"Please select at least one day for Power On schedule" = "Veuillez sélectionner au moins un jour pour le programme d'allumage";
+"Please select at least one day for Shutdown schedule" = "Veuillez sélectionner au moins un jour pour le programme d'extinction";
+"Warning: Shutdown time is very close to Power On time. This may cause issues." = "Attention : L'heure d'extinction est très proche de l'heure d'allumage. Cela peut causer des problèmes.";
+"Loading current schedule..." = "Chargement du programme actuel...";

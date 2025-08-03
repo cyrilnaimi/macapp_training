@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Allow app to install and communicate with privileged helper -->
+    <key>com.apple.security.application-groups</key>
+    <array>
+        <string>group.com.naimicyril.poweron</string>
+    </array>
+    
+    <!-- Required for XPC communication with helper tool -->
+    <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+    <array>
+        <string>com.naimicyril.poweron.helper</string>
+    </array>
+    
+    <!-- App Sandbox is disabled for privileged operations -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+    
+    <!-- Hardened Runtime -->
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <false/>
+    
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <false/>
+</dict>
+</plist>

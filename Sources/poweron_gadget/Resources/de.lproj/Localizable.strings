@@ -4,6 +4,7 @@
 "Confirm" = "Bestätigen";
 "Time" = "Zeit";
 "This will execute the following command:\n\n%@" = "Dies führt den folgenden Befehl aus:\n\n%@";
+"This will set the following power schedule:\n\n%@" = "Dies wird den folgenden Energiezeitplan festlegen:\n\n%@";
 "The Missing On/Off Scheduler for macOS" = "Der fehlende Ein-/Ausschaltplaner für macOS";
 "Monday" = "Montag";
 "Tuesday" = "Dienstag";
@@ -12,3 +13,10 @@
 "Friday" = "Freitag";
 "Saturday" = "Samstag";
 "Sunday" = "Sonntag";
+"Error" = "Fehler";
+"OK" = "OK";
+"Please enable at least one schedule" = "Bitte aktivieren Sie mindestens einen Zeitplan";
+"Please select at least one day for Power On schedule" = "Bitte wählen Sie mindestens einen Tag für den Einschaltplan";
+"Please select at least one day for Shutdown schedule" = "Bitte wählen Sie mindestens einen Tag für den Herunterfahrplan";
+"Warning: Shutdown time is very close to Power On time. This may cause issues." = "Warnung: Die Herunterfahrzeit liegt sehr nahe an der Einschaltzeit. Dies kann zu Problemen führen.";
+"Loading current schedule..." = "Aktuellen Zeitplan laden...";

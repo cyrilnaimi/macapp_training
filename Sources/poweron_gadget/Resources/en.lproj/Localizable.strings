@@ -1,4 +1,4 @@
-Power On" = "Power On";
+"Power On" = "Power On";
 "Shutdown" = "Shutdown";
 "Apply" = "Apply";
 "Confirm" = "Confirm";
@@ -6,6 +6,11 @@ Power On" = "Power On";
 "This will execute the following command:
 
 %@" = "This will execute the following command:
+
+%@";
+"This will set the following power schedule:
+
+%@" = "This will set the following power schedule:
 
 %@";
 "The Missing On/Off Scheduler for macOS" = "The Missing On/Off Scheduler for macOS";
@@ -16,3 +21,10 @@ Power On" = "Power On";
 "Friday" = "Friday";
 "Saturday" = "Saturday";
 "Sunday" = "Sunday";
+"Error" = "Error";
+"OK" = "OK";
+"Please enable at least one schedule" = "Please enable at least one schedule";
+"Please select at least one day for Power On schedule" = "Please select at least one day for Power On schedule";
+"Please select at least one day for Shutdown schedule" = "Please select at least one day for Shutdown schedule";
+"Warning: Shutdown time is very close to Power On time. This may cause issues." = "Warning: Shutdown time is very close to Power On time. This may cause issues.";
+"Loading current schedule..." = "Loading current schedule...";
