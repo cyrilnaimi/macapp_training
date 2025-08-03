@@ -63,3 +63,25 @@ The project can be built and packaged into a `.app` bundle and a `.dmg` installe
         ```
     *   Place the generated `AppIcon.icns` file in `Sources/poweron_gadget/Resources/`.
     *   The `build_release.sh` script will automatically copy this icon into the application bundle.
+
+## Handling `pmset` Privileges
+
+The `pmset` commands require root privileges to execute. In a production macOS application, directly using `sudo` via `Process` is not secure or reliable. The recommended and secure approach for privilege escalation is to implement a **Privileged Helper Tool (XPC Service)**.
+
+### Plan for Privilege Escalation:
+
+1.  **Create a Privileged Helper Tool:**
+    *   This will be a separate, small executable that runs with root privileges.
+    *   It will expose an XPC interface for the main application to communicate with it.
+    *   It will be responsible for executing the `pmset` commands.
+
+2.  **Implement XPC Communication:**
+    *   The main `PowerOnGadget` application will establish a connection with the Privileged Helper Tool via XPC.
+    *   The application will send requests (e.g., "set schedule") to the helper tool.
+    *   The helper tool will execute the `pmset` command with its elevated privileges and return the result to the main application.
+
+3.  **Code Signing and Installation:**
+    *   Both the main application and the helper tool must be properly code-signed.
+    *   The helper tool needs to be installed in a secure location (e.g., `/Library/PrivilegedHelperTools/`) and registered with `SMJobBless` to ensure it launches with root privileges.
+
+This approach ensures that the main application does not need root privileges, enhancing security and adhering to macOS best practices. Implementing a Privileged Helper Tool is a complex task that requires careful attention to security and system integration.
