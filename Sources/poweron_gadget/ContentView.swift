@@ -93,9 +93,56 @@ struct ContentView: View {
     
     private func loadSchedule() {
         pmsetManager.getSchedule { scheduleString in
-            // Parse the schedule string and update the UI state
-            // This is a simplified example. A more robust implementation would be needed to parse the output of `pmset -g sched`
+            let lines = scheduleString.split(whereSeparator: \.isNewline)
+            for line in lines {
+                if line.contains("wakeorpoweron") {
+                    powerOnEnabled = true
+                    let components = line.split(separator: " ")
+                    if let timeIndex = components.firstIndex(where: { $0.contains(":") }) {
+                        let timeString = String(components[timeIndex])
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "HH:mm:ss"
+                        if let date = formatter.date(from: timeString) {
+                            powerOnTime = date
+                        }
+                        let daysString = String(components[timeIndex - 1])
+                        powerOnDays = convertShortDaysToFull(days: daysString)
+                    }
+                } else if line.contains("shutdown") {
+                    shutdownEnabled = true
+                    let components = line.split(separator: " ")
+                    if let timeIndex = components.firstIndex(where: { $0.contains(":") }) {
+                        let timeString = String(components[timeIndex])
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "HH:mm:ss"
+                        if let date = formatter.date(from: timeString) {
+                            shutdownTime = date
+                        }
+                        let daysString = String(components[timeIndex - 1])
+                        shutdownDays = convertShortDaysToFull(days: daysString)
+                    }
+                }
+            }
         }
+    }
+
+    private func convertShortDaysToFull(days: String) -> Set<String> {
+        let dayMap = [
+            "M": "Monday",
+            "T": "Tuesday",
+            "W": "Wednesday",
+            "R": "Thursday",
+            "F": "Friday",
+            "S": "Saturday",
+            "U": "Sunday"
+        ]
+        var fullDays = Set<String>()
+        for char in days {
+            if let day = dayMap[String(char)] {
+                fullDays.insert(day)
+            }
+        }
+        return fullDays
     }
     
     private func timeString(from date: Date) -> String {

@@ -34,4 +34,28 @@ The goal of this project is to create a user-friendly macOS application that pro
 
 ## Known Limitations
 
-*   The application does not currently read or display existing `pmset` schedules that were set previously. It can only be used for setting new schedules or overwriting existing ones.
+*   The application can only be used for setting new schedules or overwriting existing ones.
+
+## Build Instructions
+
+1.  **Build the executable:**
+
+    ```bash
+    swift build
+    ```
+
+2.  **Create the application bundle:**
+
+    ```bash
+    mkdir -p PowerOnGadget.app/Contents/MacOS
+    mkdir -p PowerOnGadget.app/Contents/Resources
+    mv .build/debug/poweron_gadget PowerOnGadget.app/Contents/MacOS/
+    mv Sources/poweron_gadget/Resources PowerOnGadget.app/Contents/
+    mv Sources/poweron_gadget/Info.plist PowerOnGadget.app/Contents/
+    ```
+
+3.  **Create the DMG file:**
+
+    ```bash
+    hdiutil create -volname PowerOnGadget -srcfolder PowerOnGadget.app -ov -format UDZO PowerOnGadget.dmg
+    ```
