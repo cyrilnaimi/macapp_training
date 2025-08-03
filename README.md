@@ -38,24 +38,28 @@ The goal of this project is to create a user-friendly macOS application that pro
 
 ## Build Instructions
 
-1.  **Build the executable:**
+The project can be built and packaged into a `.app` bundle and a `.dmg` installer using the provided `build_release.sh` script.
+
+1.  **Build and Create DMG:**
 
     ```bash
-    swift build
+    ./build_release.sh
     ```
 
-2.  **Create the application bundle:**
+    This script will:
+    *   Build the application in release configuration.
+    *   Create the `PowerOnGadget.app` bundle in the project root.
+    *   Create a `PowerOnGadget.dmg` installer file.
 
-    ```bash
-    mkdir -p PowerOnGadget.app/Contents/MacOS
-    mkdir -p PowerOnGadget.app/Contents/Resources
-    mv .build/debug/poweron_gadget PowerOnGadget.app/Contents/MacOS/
-    mv Sources/poweron_gadget/Resources PowerOnGadget.app/Contents/
-    mv Sources/poweron_gadget/Info.plist PowerOnGadget.app/Contents/
-    ```
+    **Note on Info.plist:** The `Info.plist` file is now configured with copyright information for "Naimi Cyril" and the year "2025".
 
-3.  **Create the DMG file:**
-
-    ```bash
-    hdiutil create -volname PowerOnGadget -srcfolder PowerOnGadget.app -ov -format UDZO PowerOnGadget.dmg
-    ```
+2.  **Adding an Application Icon (Optional):**
+    To include a custom application icon:
+    *   Create an `.icns` file (e.g., `AppIcon.icns`) from your image assets. You can use `iconutil` on macOS:
+        ```bash
+        mkdir AppIcon.iconset
+        # Place your PNGs (e.g., icon_16x16.png, icon_32x32.png, etc.) inside AppIcon.iconset
+        iconutil -c icns AppIcon.iconset -o AppIcon.icns
+        ```
+    *   Place the generated `AppIcon.icns` file in `Sources/poweron_gadget/Resources/`.
+    *   The `build_release.sh` script will automatically copy this icon into the application bundle.
